@@ -5,7 +5,7 @@ import os
 from datetime import date
 from dotenv import load_dotenv
 from google import genai
-from database import load_data, update_stock, record_sale
+from database import load_data, update_stock, record_sale, initialize_database
 from users import authenticate
 
 # ---------------- PAGE CONFIG ----------------
@@ -326,7 +326,22 @@ if not st.session_state.logged_in:
 
 load_dotenv()
 
-client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+api_key = os.getenv("GEMINI_API_KEY")
+
+if not api_key:
+    try:
+        api_key = st.secrets["GEMINI_API_KEY"]
+    except Exception:
+        api_key = None
+
+if not api_key:
+    st.error("Gemini API key is not configured.")
+    st.stop()
+
+client = genai.Client(api_key=api_key)
+
+if not os.path.exists("business.db"):
+    initialize_database()
 
 sales, inventory, customers = load_data()
 
