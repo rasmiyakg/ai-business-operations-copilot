@@ -73,3 +73,16 @@ ai-business-copilot/
     ├── sales.csv
     ├── inventory.csv
     └── customers.csv
+## Application Screenshots
+
+### Login
+![Login](screenshots/login.png)
+
+### Dashboard
+![Dashboard](screenshots/dashboard.png)
+
+### AI Assistant
+![AI Assistant](screenshots/ai-assistant.png)
+
+### Inventory & AI Recommendations
+![Inventory](screenshots/inventory.png)
